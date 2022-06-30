@@ -14,8 +14,8 @@ function SingleItem(props: Item) {
 	const [jsonData, setJsonData] = useState<NodeInfo>();
 	const [nodeData, setNodeData] = useState<NodeInfo>();
 	const [imageData, setImageData] = useState<HTMLImageElement>();
-	const [paddingXData] = useState(1440)
-	const [paddingYData] = useState(2560)
+	const [paddingXData] = useState(10)
+	const [paddingYData] = useState(10)
 
 	let inspectInfo = (nodeInfo: NodeInfo) => {
 		setNodeData(nodeInfo);
@@ -58,8 +58,8 @@ function SingleItem(props: Item) {
 			image.src = "data:image/png;base64," + response.data.img_data;
 			setImageData(image)
 			image.onload = function () {
-				current?.setAttribute("width", (realWidth*3).toString())
-				current?.setAttribute("height", (realHeight*3).toString())
+				current?.setAttribute("width", (realWidth+paddingXData*2).toString())
+				current?.setAttribute("height", (realHeight+paddingYData*2).toString())
 				context?.drawImage(image, paddingXData, paddingYData, realWidth, realHeight);
 			};
 			setJsonData(JSON.parse(response.data.json_data)["activity"]["root"])
