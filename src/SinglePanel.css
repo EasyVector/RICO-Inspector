@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.Json-Panel {
+    /*overflow: scroll;*/
+    height: 550px;
+}
+
+.Canvas-Panel{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.My-Canvas{
+    /*height: 550px;*/
+    max-height: 520px;
+    max-width: 100%;
+}
+
+.canvas-wrapper{
+    max-height: 520px;
+    max-width: 100%;
+}
+
+.item{
+    display: flex;
+}
+
+.highlight{
+    color: red;
+}

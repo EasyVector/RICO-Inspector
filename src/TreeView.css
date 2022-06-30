@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.bold {
+    font-weight: bold;
+}
+.tree-ul {
+    font-family: Menlo, Consolas, monospace;
+    color: #444;
+    padding-left: 0.5em;
+    line-height: 1.2em;
+    list-style-type: dot;
+}
