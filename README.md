@@ -5,6 +5,8 @@ You should clone this repo after you download all the necessary data from RICO: 
 
 TO REMIND: This tool is for inspecting `UI Screenshots and View Hierarchies` of RICO.
 
+TO DO: Inspecting all the data of RICO, and I appreciate any contributions or issues :)
+
 ## How to run this code.
 
 1. Specify the path to `UI Screenshots and View Hierarchies` of RICO on your PC in `server.py`
