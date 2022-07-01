@@ -161,15 +161,15 @@ function SingleItem(props: Item) {
 				<h3>You are inspecting the record of '{props.value}' inside RICO.</h3>
 			</div>
 			<div className="flex flex-row">
-				<div className="Canvas-Panel basis-1/3 shadow-md ">
+				<div className="canvas-panel basis-1/3 shadow-md ">
 					<div className="canvas-wrapper">
-						<canvas className="My-Canvas" ref={myRef}/>
+						<canvas className="my-canvas" ref={myRef}/>
 					</div>
 				</div>
-				<div className="Json-Panel mx-2 basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 overflow-auto shadow-md sm:rounded-lg">
+				<div className="tree-panel mx-2 basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 overflow-auto shadow-md sm:rounded-lg">
 					{jsonData!==undefined && <Tree hoverInfo={hoverInfo} rawNodeData={jsonData} inspectInfo={inspectInfo}/>}
 				</div>
-				<div className="Json-Panel basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300  overflow-auto shadow-md sm:rounded-lg">
+				<div className="json-panel basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300  overflow-auto shadow-md sm:rounded-lg">
 					<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 						<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 							<tr>

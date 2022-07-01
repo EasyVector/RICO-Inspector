@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .bold {
     font-weight: bold;
+    background: bisque;
+    border: 2px solid red;
 }
+
 .tree-ul {
     font-family: Menlo, Consolas, monospace;
     color: #444;
