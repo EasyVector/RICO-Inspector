@@ -76,6 +76,10 @@ function SingleItem(props: Item) {
 	}
 
 	React.useEffect(() => {
+		setJsonData(undefined)
+		setNodeData(undefined)
+		setSelectedNodeBound(undefined)
+		setHoveredNodeBound(undefined)
 		axios({
 			method: 'get',
 			url: 'http://127.0.0.1:8082/api/v1/get_one_data',
