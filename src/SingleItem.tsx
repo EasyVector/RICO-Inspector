@@ -73,18 +73,7 @@ function SingleItem(props: Item) {
 				ctx.clearRect(0, 0, current.width, current.height);
 				if (imageData!==undefined)
 					ctx.drawImage(imageData, paddingXData, paddingYData, 1440, 2560);
-				ctx.lineWidth = 15;
-				if (hoveredNodeBound!==undefined){
-					ctx.strokeStyle = 'blue';
-					let hoveredRectangle = new Path2D();
-					hoveredRectangle.rect(
-						hoveredNodeBound[0],
-						hoveredNodeBound[1],
-						hoveredNodeBound[2],
-						hoveredNodeBound[3]
-					);
-					ctx.stroke(hoveredRectangle);
-				}
+				ctx.lineWidth = 20;
 				if (selectedNodeBound!==undefined){
 					ctx.strokeStyle = 'red';
 					let selectedRectangle = new Path2D();
@@ -94,7 +83,21 @@ function SingleItem(props: Item) {
 						selectedNodeBound[2],
 						selectedNodeBound[3]
 					);
+					ctx.setLineDash([])
 					ctx.stroke(selectedRectangle);
+				}
+				if (hoveredNodeBound!==undefined){
+					ctx.strokeStyle = 'yellow';
+					let hoveredRectangle = new Path2D();
+					ctx.setLineDash([10,10])
+					hoveredRectangle.rect(
+						hoveredNodeBound[0],
+						hoveredNodeBound[1],
+						hoveredNodeBound[2],
+						hoveredNodeBound[3]
+					);
+					ctx.setLineDash([40,40])
+					ctx.stroke(hoveredRectangle);
 				}
 			}
 		}
