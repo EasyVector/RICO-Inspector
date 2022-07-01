@@ -134,6 +134,10 @@ function SingleItem(props: Item) {
 		});
 	}, [props.label, paddingXData, paddingYData])
 
+	let _moveOut = () => {
+		setHoveredNodeBound(undefined)
+	}
+
 	let prepareTable = (tableData:NodeInfo) => {
 		let key: string
 		let tableItems :JSX.Element[] = []
@@ -166,7 +170,7 @@ function SingleItem(props: Item) {
 						<canvas className="my-canvas" ref={myRef}/>
 					</div>
 				</div>
-				<div className="tree-panel mx-2 basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 overflow-auto shadow-md sm:rounded-lg">
+				<div className="tree-panel mx-2 basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 overflow-auto shadow-md sm:rounded-lg" onMouseOut={_moveOut} >
 					{jsonData!==undefined && <Tree hoverInfo={hoverInfo} rawNodeData={jsonData} inspectInfo={inspectInfo}/>}
 				</div>
 				<div className="json-panel basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300  overflow-auto shadow-md sm:rounded-lg">
