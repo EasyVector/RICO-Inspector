@@ -87,31 +87,32 @@ class Panel extends React.Component<{},PanelData> {
                         <Items items={this.state.items}/>
 					}
 				</div>
-
+				{!this.state.loading &&
 				<div className="flex justify-center">
-					<ReactPaginate
-						breakLabel="..."
-						nextLabel="Next"
-						onPageChange={this.handlePageClick}
-						pageRangeDisplayed={5}
-						forcePage={this.state.pageNum}
-						pageClassName="inline-flex"
-						pageLinkClassName="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-						previousLinkClassName="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-						previousClassName="inline-flex"
-						nextClassName="inline-flex"
-						nextLinkClassName="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-						breakLinkClassName="py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-						breakClassName="inline-flex"
-						containerClassName="inline-flex -space-x-px"
-						activeLinkClassName="py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-						activeClassName="inline-flex"
-						pageCount={Math.ceil(this.state.options.length/this.state.itemsPerPage)}
-						previousLabel="Previous"
-					/>
-					<input type="number" className="inline-flex -space-x-px block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" value={this.state.inputNumDisplay} onChange={this.setInputPageNum}/>
-					<Button className="inline-flex -space-x-px py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75" onClick={this.goto}>GOTO</Button>
-				</div>
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel="Next"
+                            onPageChange={this.handlePageClick}
+                            pageRangeDisplayed={5}
+                            forcePage={this.state.pageNum}
+                            pageClassName="inline-flex"
+                            pageLinkClassName="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            previousLinkClassName="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            previousClassName="inline-flex"
+                            nextClassName="inline-flex"
+                            nextLinkClassName="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            breakLinkClassName="py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                            breakClassName="inline-flex"
+                            containerClassName="inline-flex -space-x-px"
+                            activeLinkClassName="py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                            activeClassName="inline-flex"
+                            pageCount={Math.ceil(this.state.options.length / this.state.itemsPerPage)}
+                            previousLabel="Previous"
+                        />
+						<input type="number" className="inline-flex -space-x-px block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" value={this.state.inputNumDisplay} onChange={this.setInputPageNum}/>
+						<Button className="inline-flex -space-x-px py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75" onClick={this.goto}>GOTO</Button>
+					</div>
+				}
 			</div>
 		);
 	}
