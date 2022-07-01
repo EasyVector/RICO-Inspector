@@ -9,7 +9,7 @@ type Item = {
 export type ItemArray = Item[]
 
 type ItemsProps = {
-	items:ItemArray
+	items: ItemArray
 }
 
 function Items({items}: ItemsProps) {
