@@ -4,57 +4,57 @@ import {AxiosResponse} from "axios";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import Items from "./Item";
-import { ItemArray } from "./Item"
+import {ItemArray} from "./Item"
 import {Button} from "react-bootstrap";
 
 type PanelData = {
-	json_data:string,
-	img_data:string,
+	json_data: string,
+	img_data: string,
 	options: ItemArray,
-	items:ItemArray,
+	items: ItemArray,
 	itemsPerPage: number,
-	itemOffset:number,
-	pageCount:number,
-	pageNum:number,
-	inputNum:number,
-	inputNumDisplay:number,
-	loading:boolean
+	itemOffset: number,
+	pageCount: number,
+	pageNum: number,
+	inputNum: number,
+	inputNumDisplay: number,
+	loading: boolean
 }
 
-class Panel extends React.Component<{},PanelData> {
+class Panel extends React.Component<{}, PanelData> {
 	private myRef: React.RefObject<HTMLCanvasElement>;
 
 	state = {
 		json_data: "",
 		img_data: "",
 		options: [],
-		items:[],
+		items: [],
 		itemsPerPage: 1,
-		itemOffset:0,
-		pageCount:0,
-		pageNum:0,
-		inputNum:0,
-		inputNumDisplay:1,
-		loading:true
+		itemOffset: 0,
+		pageCount: 0,
+		pageNum: 0,
+		inputNum: 0,
+		inputNumDisplay: 1,
+		loading: true
 	};
 
-	constructor(props:{}) {
+	constructor(props: {}) {
 		super(props);
 		this.myRef = React.createRef();
 	}
 
-	private handlePageClick = (event:{ selected: number }) => {
+	private handlePageClick = (event: { selected: number }) => {
 		const newOffset = (event.selected * this.state.itemsPerPage) % this.state.options.length;
 		const endOffset = newOffset + this.state.itemsPerPage;
 		this.setState({
-			items:this.state.options.slice(newOffset, endOffset),
-			itemOffset:newOffset,
-			pageNum:event.selected
+			items: this.state.options.slice(newOffset, endOffset),
+			itemOffset: newOffset,
+			pageNum: event.selected
 		});
 	};
 
 	async componentDidMount() {
-		let res:AxiosResponse = await axios({
+		let res: AxiosResponse = await axios({
 			method: 'get',
 			url: 'http://127.0.0.1:8082/api/v1/get_data',
 			responseType: 'json',
@@ -64,18 +64,18 @@ class Panel extends React.Component<{},PanelData> {
 		this.setState({
 			options: res.data,
 			items: res.data.slice(newOffset, endOffset),
-			loading:false
+			loading: false
 		})
 	}
 
-	private goto = ()=>{
-		this.handlePageClick({selected:this.state.inputNum})
+	private goto = () => {
+		this.handlePageClick({selected: this.state.inputNum})
 	}
 
-	private setInputPageNum = (event:ChangeEvent<HTMLInputElement>)=>{
+	private setInputPageNum = (event: ChangeEvent<HTMLInputElement>) => {
 		this.setState({
-			inputNum:Number(event.target.value)-1,
-			inputNumDisplay:Number(event.target.value)
+			inputNum: Number(event.target.value) - 1,
+			inputNumDisplay: Number(event.target.value)
 		})
 	}
 
@@ -88,7 +88,7 @@ class Panel extends React.Component<{},PanelData> {
 					}
 				</div>
 				{!this.state.loading &&
-				<div className="flex justify-center">
+                    <div className="flex justify-center">
                         <ReactPaginate
                             breakLabel="..."
                             nextLabel="Next"
@@ -109,9 +109,13 @@ class Panel extends React.Component<{},PanelData> {
                             pageCount={Math.ceil(this.state.options.length / this.state.itemsPerPage)}
                             previousLabel="Previous"
                         />
-						<input type="number" className="inline-flex -space-x-px block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" value={this.state.inputNumDisplay} onChange={this.setInputPageNum}/>
-						<Button className="inline-flex -space-x-px py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75" onClick={this.goto}>GOTO</Button>
-					</div>
+                        <input type="number"
+                               className="inline-flex -space-x-px block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                               value={this.state.inputNumDisplay} onChange={this.setInputPageNum}/>
+                        <Button
+                            className="inline-flex -space-x-px py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+                            onClick={this.goto}>GOTO</Button>
+                    </div>
 				}
 			</div>
 		);
