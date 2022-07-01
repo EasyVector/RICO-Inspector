@@ -28,42 +28,6 @@ function SingleItem(props: Item) {
 		setSelectedNodeBound([x,y,w,h])
 	}
 
-	// let updateCanvas = () => {
-	// 	let current = myRef.current
-	// 	if (current!=null)
-	// 	{
-	// 		let ctx = current.getContext('2d');
-	// 		if (ctx!==null) {
-	// 			ctx.clearRect(0, 0, current.width, current.height);
-	// 			if (imageData!==undefined)
-	// 				ctx.drawImage(imageData, paddingXData, paddingYData, 1440, 2560);
-	// 			ctx.lineWidth = 15;
-	// 			if (hoveredNodeBound!==undefined){
-	// 				ctx.strokeStyle = 'blue';
-	// 				let hoveredRectangle = new Path2D();
-	// 				hoveredRectangle.rect(
-	// 					hoveredNodeBound[0],
-	// 					hoveredNodeBound[1],
-	// 					hoveredNodeBound[2],
-	// 					hoveredNodeBound[3]
-	// 				);
-	// 				ctx.stroke(hoveredRectangle);
-	// 			}
-	// 			if (selectedNodeBound!==undefined){
-	// 				ctx.strokeStyle = 'red';
-	// 				let selectedRectangle = new Path2D();
-	// 				selectedRectangle.rect(
-	// 					selectedNodeBound[0],
-	// 					selectedNodeBound[1],
-	// 					selectedNodeBound[2],
-	// 					selectedNodeBound[3]
-	// 				);
-	// 				ctx.stroke(selectedRectangle);
-	// 			}
-	// 		}
-	// 	}
-	// }
-
 	React.useEffect(()=>{
 		let current = myRef.current
 		if (current!=null)
