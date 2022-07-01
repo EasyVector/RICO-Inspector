@@ -70,7 +70,7 @@ function TreeView(props: {
 
 	return (
 		<ul className="tree-ul">
-			<div key={props.token} className={`hover:cursor-pointer max-w-fit 
+			<div key={props.token} className={`hover:cursor-pointer w-fit
 			${props.token === props.clickedToken ? "bold" : ""}`} onClick={_onPress} onMouseOver={_onHover}>
 				{props.rawNodeData["class"]}
 			</div>
