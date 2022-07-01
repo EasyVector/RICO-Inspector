@@ -17,40 +17,29 @@ type PanelData = {
 	pageCount:number,
 	pageNum:number,
 	inputNum:number,
-	inputNumDisplay:number
+	inputNumDisplay:number,
+	loading:boolean
 }
 
 class Panel extends React.Component<{},PanelData> {
 	private myRef: React.RefObject<HTMLCanvasElement>;
+
+	state = {
+		json_data: "",
+		img_data: "",
+		options: [],
+		items:[],
+		itemsPerPage: 1,
+		itemOffset:0,
+		pageCount:0,
+		pageNum:0,
+		inputNum:0,
+		inputNumDisplay:1,
+		loading:true
+	};
+
 	constructor(props:{}) {
 		super(props);
-		this.state = {
-			json_data: "",
-			img_data: "",
-			options: [],
-			items:[],
-			itemsPerPage: 1,
-			itemOffset:0,
-			pageCount:0,
-			pageNum:0,
-			inputNum:0,
-			inputNumDisplay:1,
-		};
-
-		axios({
-			method: 'get',
-			url: 'http://127.0.0.1:8082/api/v1/get_data',
-			responseType: 'json',
-		})
-		.then((response:AxiosResponse)=> {
-			const newOffset = this.state.itemsPerPage % this.state.options.length;
-			const endOffset = this.state.itemOffset + this.state.itemsPerPage;
-			this.setState({
-				options:response.data,
-				items:response.data.slice(newOffset, endOffset),
-			})
-		});
-
 		this.myRef = React.createRef();
 	}
 
@@ -64,8 +53,19 @@ class Panel extends React.Component<{},PanelData> {
 		});
 	};
 
-	componentDidMount() {
-
+	async componentDidMount() {
+		let res:AxiosResponse = await axios({
+			method: 'get',
+			url: 'http://127.0.0.1:8082/api/v1/get_data',
+			responseType: 'json',
+		})
+		const newOffset = 0;
+		const endOffset = this.state.itemOffset + this.state.itemsPerPage;
+		this.setState({
+			options: res.data,
+			items: res.data.slice(newOffset, endOffset),
+			loading:false
+		})
 	}
 
 	private goto = ()=>{
@@ -79,15 +79,11 @@ class Panel extends React.Component<{},PanelData> {
 		})
 	}
 
-	componentWillUnmount() {
-
-	}
-
 	render() {
 		return (
 			<div className="container mx-auto w-full my-10">
 				<div className="container mx-auto">
-					{this.state.items.length > 0 &&
+					{!this.state.loading &&
                         <Items items={this.state.items}/>
 					}
 				</div>
@@ -110,7 +106,7 @@ class Panel extends React.Component<{},PanelData> {
 						containerClassName="inline-flex -space-x-px"
 						activeLinkClassName="py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
 						activeClassName="inline-flex"
-						pageCount={Math.ceil(this.state.options.length*1.0/this.state.itemsPerPage)}
+						pageCount={Math.ceil(this.state.options.length/this.state.itemsPerPage)}
 						previousLabel="Previous"
 					/>
 					<input type="number" className="inline-flex -space-x-px block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" value={this.state.inputNumDisplay} onChange={this.setInputPageNum}/>

@@ -54,13 +54,14 @@ function TreeView(props: {
 		for (child of childrenNodes){
 			let childJSX:JSX.Element =
 				<TreeView
+					key={props.token+index.toString()}
 					rawNodeData={child}
 					hoverInfo={props.hoverInfo}
 					inspectInfo={props.inspectInfo}
 					token={props.token+index.toString()}
 					clickStatusCallBack={props.clickStatusCallBack}
 					clickedToken={props.clickedToken}
-				/>;
+				/>
 			childrenJSX.push(childJSX)
 			index+=1
 		}
@@ -69,7 +70,7 @@ function TreeView(props: {
 
 	return (
 		<ul className="tree-ul">
-			<div className={`hover:cursor-pointer max-w-fit 
+			<div key={props.token} className={`hover:cursor-pointer max-w-fit 
 			${props.token === props.clickedToken ? "bold" : ""}`} onClick={_onPress} onMouseOver={_onHover}>
 				{props.rawNodeData["class"]}
 			</div>
