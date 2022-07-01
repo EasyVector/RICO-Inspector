@@ -4,7 +4,8 @@ import TreeView, {NodeInfo} from "./TreeView";
 
 function Tree(props:{
     rawNodeData:NodeInfo,
-    inspectInfo:(info:NodeInfo)=>void
+    inspectInfo:(info:NodeInfo)=>void,
+	hoverInfo:(info:NodeInfo)=>void
 }) {
     const [clickedToken, setClickedToken] = useState("-1")
 
@@ -18,6 +19,7 @@ function Tree(props:{
                       inspectInfo={props.inspectInfo}
                       clickedToken={clickedToken}
                       token={"0"}
+                      hoverInfo={props.hoverInfo}
                       clickStatusCallBack={clickedCallback}/>
         </>
     )

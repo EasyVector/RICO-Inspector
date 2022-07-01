@@ -16,6 +16,8 @@ function SingleItem(props: Item) {
 	const [imageData, setImageData] = useState<HTMLImageElement>();
 	const [paddingXData] = useState(10)
 	const [paddingYData] = useState(10)
+	const [selectedNodeBound, setSelectedNodeBound] = useState<number[]>()
+	const [hoveredNodeBound, setHoveredNodeBound] = useState<number[]>()
 
 	let inspectInfo = (nodeInfo: NodeInfo) => {
 		setNodeData(nodeInfo);
@@ -23,21 +25,87 @@ function SingleItem(props: Item) {
 			y = nodeInfo["bounds"][1]+paddingYData,
 			w = nodeInfo["bounds"][2]-nodeInfo["bounds"][0],
 			h = nodeInfo["bounds"][3]-nodeInfo["bounds"][1];
+		setSelectedNodeBound([x,y,w,h])
+	}
+
+	// let updateCanvas = () => {
+	// 	let current = myRef.current
+	// 	if (current!=null)
+	// 	{
+	// 		let ctx = current.getContext('2d');
+	// 		if (ctx!==null) {
+	// 			ctx.clearRect(0, 0, current.width, current.height);
+	// 			if (imageData!==undefined)
+	// 				ctx.drawImage(imageData, paddingXData, paddingYData, 1440, 2560);
+	// 			ctx.lineWidth = 15;
+	// 			if (hoveredNodeBound!==undefined){
+	// 				ctx.strokeStyle = 'blue';
+	// 				let hoveredRectangle = new Path2D();
+	// 				hoveredRectangle.rect(
+	// 					hoveredNodeBound[0],
+	// 					hoveredNodeBound[1],
+	// 					hoveredNodeBound[2],
+	// 					hoveredNodeBound[3]
+	// 				);
+	// 				ctx.stroke(hoveredRectangle);
+	// 			}
+	// 			if (selectedNodeBound!==undefined){
+	// 				ctx.strokeStyle = 'red';
+	// 				let selectedRectangle = new Path2D();
+	// 				selectedRectangle.rect(
+	// 					selectedNodeBound[0],
+	// 					selectedNodeBound[1],
+	// 					selectedNodeBound[2],
+	// 					selectedNodeBound[3]
+	// 				);
+	// 				ctx.stroke(selectedRectangle);
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	React.useEffect(()=>{
 		let current = myRef.current
 		if (current!=null)
 		{
 			let ctx = current.getContext('2d');
-			let rectangle = new Path2D();
-			rectangle.rect(x, y, w, h);
 			if (ctx!==null) {
 				ctx.clearRect(0, 0, current.width, current.height);
 				if (imageData!==undefined)
 					ctx.drawImage(imageData, paddingXData, paddingYData, 1440, 2560);
 				ctx.lineWidth = 15;
-				ctx.strokeStyle = 'red';
-				ctx.stroke(rectangle);
+				if (hoveredNodeBound!==undefined){
+					ctx.strokeStyle = 'blue';
+					let hoveredRectangle = new Path2D();
+					hoveredRectangle.rect(
+						hoveredNodeBound[0],
+						hoveredNodeBound[1],
+						hoveredNodeBound[2],
+						hoveredNodeBound[3]
+					);
+					ctx.stroke(hoveredRectangle);
+				}
+				if (selectedNodeBound!==undefined){
+					ctx.strokeStyle = 'red';
+					let selectedRectangle = new Path2D();
+					selectedRectangle.rect(
+						selectedNodeBound[0],
+						selectedNodeBound[1],
+						selectedNodeBound[2],
+						selectedNodeBound[3]
+					);
+					ctx.stroke(selectedRectangle);
+				}
 			}
 		}
+	}, [hoveredNodeBound, selectedNodeBound, imageData, paddingXData, paddingYData])
+
+	let hoverInfo = (nodeInfo: NodeInfo) => {
+		let x = nodeInfo["bounds"][0]+paddingXData,
+			y = nodeInfo["bounds"][1]+paddingYData,
+			w = nodeInfo["bounds"][2]-nodeInfo["bounds"][0],
+			h = nodeInfo["bounds"][3]-nodeInfo["bounds"][1];
+		setHoveredNodeBound([x,y,w,h])
 	}
 
 	React.useEffect(() => {
@@ -64,7 +132,7 @@ function SingleItem(props: Item) {
 			};
 			setJsonData(JSON.parse(response.data.json_data)["activity"]["root"])
 		});
-	}, [props.label])
+	}, [props.label, paddingXData, paddingYData])
 
 	let prepareTable = (tableData:NodeInfo) => {
 		let key: string
@@ -99,7 +167,7 @@ function SingleItem(props: Item) {
 					</div>
 				</div>
 				<div className="Json-Panel mx-2 basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 overflow-auto shadow-md sm:rounded-lg">
-					{jsonData!==undefined && <Tree rawNodeData={jsonData} inspectInfo={inspectInfo}/>}
+					{jsonData!==undefined && <Tree hoverInfo={hoverInfo} rawNodeData={jsonData} inspectInfo={inspectInfo}/>}
 				</div>
 				<div className="Json-Panel basis-1/3 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300  overflow-auto shadow-md sm:rounded-lg">
 					<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

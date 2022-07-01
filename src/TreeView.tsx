@@ -30,6 +30,7 @@ function TreeView(props: {
 	rawNodeData: NodeInfo,
 	inspectInfo:(nodeInfo:NodeInfo)=>void,
 	token:string,
+	hoverInfo:(nodeInfo:NodeInfo)=>void,
 	clickStatusCallBack:(token:string)=>void,
 	clickedToken:string
 }) {
@@ -37,6 +38,10 @@ function TreeView(props: {
 	let _onPress = () => {
 		props.inspectInfo(props.rawNodeData)
 		props.clickStatusCallBack(props.token)
+	}
+
+	let _onHover = () => {
+		props.hoverInfo(props.rawNodeData)
 	}
 
 	let initChildren = (childrenNodes:NodeInfo[]|undefined) => {
@@ -50,6 +55,7 @@ function TreeView(props: {
 			let childJSX:JSX.Element =
 				<TreeView
 					rawNodeData={child}
+					hoverInfo={props.hoverInfo}
 					inspectInfo={props.inspectInfo}
 					token={props.token+index.toString()}
 					clickStatusCallBack={props.clickStatusCallBack}
@@ -64,7 +70,7 @@ function TreeView(props: {
 	return (
 		<ul className="tree-ul">
 			<div className={`hover:cursor-pointer max-w-fit 
-			${props.token === props.clickedToken ? "bold" : ""}`} onClick={_onPress}>
+			${props.token === props.clickedToken ? "bold" : ""}`} onClick={_onPress} onMouseOver={_onHover}>
 				{props.rawNodeData["class"]}
 			</div>
 			<ul className="tree-ul" >{initChildren(props.rawNodeData.children)}</ul>
