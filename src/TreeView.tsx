@@ -54,11 +54,11 @@ function TreeView(props: {
 		for (child of childrenNodes){
 			let childJSX:JSX.Element =
 				<TreeView
-					key={props.token+index.toString()}
+					key={props.token+","+index.toString()}
 					rawNodeData={child}
 					hoverInfo={props.hoverInfo}
 					inspectInfo={props.inspectInfo}
-					token={props.token+index.toString()}
+					token={props.token+","+index.toString()}
 					clickStatusCallBack={props.clickStatusCallBack}
 					clickedToken={props.clickedToken}
 				/>
