@@ -1,7 +1,7 @@
 # RICO-Inspector
 A basic web tool for inspecting view tree of RICO.
 
-You should clone this repo after you download all the necessary data from RICO: https://interactionmining.org/rico
+You should clone this repo after you download all the data of `UI Screenshots and View Hierarchies` from RICO: https://interactionmining.org/rico
 
 TO REMIND: This tool is for inspecting `UI Screenshots and View Hierarchies` of RICO.
 
